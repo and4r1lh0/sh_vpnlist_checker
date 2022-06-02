@@ -15,8 +15,8 @@ def parse(encstr):
     return('%s' % decoded_uri.decode('utf-8'))
 
 i=1
-file = open("shadowsocks_full.txt", "r")
-file2 = open("out.txt", "w")
+file = open("input.txt", "r")
+file2 = open("output.txt", "w")
 
 while True:
     line = file.readline()
@@ -48,7 +48,7 @@ while True:
         #pinga = None
         if pinga == None:
             pinga = [0,'Err']
-        print('№ ',i,'\tIP: ',ip_add[0],'\t| Пинг: ',pinga[1],'\t| Страна: ',country)
+        print('№ ',i,'\tIP: ',ip_add[0],'\t| Ping: ',pinga[1],'\t| Country: ',country)
         i+=1
         #file2.write(line + '\n')
         file2.writelines(line)
