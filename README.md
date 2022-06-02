@@ -1,9 +1,10 @@
 ### This module let analyze the node status in Shadowsocks and native Clash network tunnel configurations by checking server port status.
-#### It needs to install single dependency via:
+#### It needs to install some dependencies via:
 
 ```python
 
 >pip install base64
+>pip install ip2geotools
 ```
 
 #### input.txt
