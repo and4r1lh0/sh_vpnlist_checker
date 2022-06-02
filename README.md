@@ -1,7 +1,5 @@
-### This module let Shadowsocks and Clash configurable network tunnel configs enparse by checking server port status.
+### This module let analyze the node status in Shadowsocks and native Clash network tunnel configurations by checking server port status.
 #### It needs to install single dependency via:
-
-
 
 ```python
 
