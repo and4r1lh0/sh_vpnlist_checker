@@ -43,7 +43,6 @@ while True:
     else:
         pinga = ping.main(ip_address)
         country = navlock.ipInfo(ip_add[0])
-        country = country[9]
         #country = 'Null'
         if pinga == None:
             pinga = [0,'Err']
