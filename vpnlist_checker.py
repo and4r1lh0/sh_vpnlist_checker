@@ -43,7 +43,7 @@ while True:
     else:
         pinga = ping.main(ip_address)
         country = navlock.ipInfo(ip_add[0])
-        #country = 'Null'
+        #country = country[9]
         if pinga == None:
             pinga = [0,'Err']
         print('№ ',i,'\tIP: ',ip_add[0],'\t| Ping: ',pinga[1],'\t| Country: ',country)
