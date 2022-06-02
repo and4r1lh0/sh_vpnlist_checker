@@ -11,5 +11,3 @@ def scan_port(ip,port):
   except:
      #pass
      return None
-
-#scan_port('93.186.201.158',801)
