@@ -1,4 +1,4 @@
-### This tool let analyze the node status in Shadowsocks and native Clash network tunnel configurations by checking server port status.
+### This tool let analyze the Shadowsocks node status and native Clash network tunnel configurations by checking server port state.
 #### It needs to install some dependencies via:
 
 ```python
