@@ -26,6 +26,7 @@ while True:
     proc_line = proc(cur_line)
     parsed_line = parse(proc_line)
     double_parse = parsed_line.partition(':')[-1]
+    cypher = parsed_line.partition(':')[0]
     port = double_parse.partition(':')[-1]
     
     ip_add = (re.search(r'(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)',parsed_line))
@@ -40,10 +41,13 @@ while True:
 
     if ping_attempt==None:
         pass
+    #elif cypher == 'aes-256-cfb':
     else:
-        pinga = ping.main(ip_address)
-        country = navlock.ipInfo(ip_add[0])
+        #pinga = ping.main(ip_address)
+        #country = navlock.ipInfo(ip_add[0])
         #country = country[9]
+        country = 'Null'
+        pinga = None
         if pinga == None:
             pinga = [0,'Err']
         print('№ ',i,'\tIP: ',ip_add[0],'\t| Ping: ',pinga[1],'\t| Country: ',country)
