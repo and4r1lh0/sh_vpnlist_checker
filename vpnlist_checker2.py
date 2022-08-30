@@ -19,42 +19,43 @@ def remove_subdomain(text):
     return(text.replace(text, '.'.join(text.split('.')[-2:])))
 
 i=1
-file = open("out_full.txt", "r")
+file = open("valid.txt", "r")
 file2 = open("output.txt", "w")
-
+buffhost=[]
 while True:
     line = file.readline()
     if not line:
         break
    
-    #ver1
-    cur_line = (line.strip())
-    cyphertext = proc(cur_line)
-    open_ip = parse(cyphertext)
-    plaintext = open_ip.partition(':')[-1]
+    try:#ver1
+        cur_line = (line.strip())
+        cyphertext = proc(cur_line)
+        open_ip = parse(cyphertext)
+        plaintext = open_ip.partition(':')[-1]
+        
+        cypher = open_ip.partition(':')[0]
+        ip_and_port = plaintext.partition('@')[-1]
+        port = ip_and_port.partition(':')[-1]
+        host = ip_and_port.partition(':')[0]
 
-    cypher = open_ip.partition(':')[0]
-    ip_and_port = plaintext.partition('@')[-1]
-    port = ip_and_port.partition(':')[-1]
-    host = ip_and_port.partition(':')[0]
-
-    ##ver2
-    #cur_line = (line.strip())
-    #cyphertext = proc(cur_line)
-    ##plaintext = open_ip.partition(':')[-1]
-    ##cypher = cyphertext.partition(':')[0]
-    #ip_and_port = cyphertext.partition('@')[-1]
-    #port = ip_and_port.partition(':')[-1]
-    #host = ip_and_port.partition(':')[0]
+    except:#ver2
+        cur_line = (line.strip())
+        cyphertext = proc(cur_line)
+        #plaintext = open_ip.partition(':')[-1]
+        ##cypher = cyphertext.partition(':')[0]
+        ip_and_port = cyphertext.partition('@')[-1]
+        port = ip_and_port.partition(':')[-1]
+        host = ip_and_port.partition(':')[0]
 
     ping_attempt = scan_port(host,int(port)) #scan custom port
+    #print(ping_attempt)
     #ping_attempt = s.myping(host) #scan default port
 
     if ping_attempt==None:
         pass
     #elif cypher == 'aes-256-cfb': #customized cypher
     else:
-        #pinga = ping.main(host) #ping attempt
+        pinga = ping.main(host) #ping attempt
 
         GEOIP = pygeoip.GeoIP("GeoIP.dat", pygeoip.MEMORY_CACHE)
         #GeoIP Legacy Databases (DAT): https://www.miyuru.lk/geoiplegacy
@@ -63,17 +64,24 @@ while True:
         try:
             country = GEOIP.country_name_by_addr(host)
         except:
-            #host=(remove_subdomain(host))
-            #country = GEOIP.country_name_by_addr(host)
-            print('')
+        #    #host=(remove_subdomain(host))
+        #    #country = GEOIP.country_name_by_addr(host)
+        #    print('')
+            pass
 
         #country = 'Null'
-        pinga = None
+        #pinga = None
         if pinga == None:
             pinga = [0,'Err']
-        print('№ ',i,'\tIP: ',host,'\t| Ping: ',pinga[1],'\t| Country: ',country)
-        i+=1
-        #file2.write(line + '\n')
-        file2.writelines(line)
+        #elif int(pinga[1])<=100 and country!='Russian Federation':
+        elif pinga!=None:
+            if host not in buffhost:
+                buffhost.append(host)
+                print('№ ',i,'\tHost: ',host,'\t| Ping: ',pinga[1],'\t| Country: ',country)
+                i+=1
+                #file2.write(line + '\n')
+                file2.writelines(line)
+        else:
+            pass
 file2.close()
 file.close()
